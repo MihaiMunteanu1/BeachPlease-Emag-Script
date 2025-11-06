@@ -1,5 +1,6 @@
 # BeachPlease-Emag-Script
 
+* Make sure you have python installed and added to Path
 
 1. Create a folder on desktop
 
