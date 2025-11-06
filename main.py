@@ -6,7 +6,6 @@ Monitorizare normală, execuție RAPIDĂ când găsește butonul
 """
 
 import time
-import winsound
 import logging
 from datetime import datetime
 from selenium import webdriver
@@ -14,7 +13,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 # Setup logging
 logging.basicConfig(
@@ -36,8 +34,8 @@ class BeachPleaseFastBot:
 
         # Setări RAPIDE pentru execuție
         self.max_retries_fast = 5  # Mai puține retry-uri pentru viteză
-        self.retry_delay_fast = 1  # Delay mai mic între retry-uri
-        self.step_delay_fast = 0.3  # Pauze foarte mici între pași
+        self.retry_delay_fast = 0.6  # Delay mai mic între retry-uri
+        self.step_delay_fast = 0.2  # Pauze foarte mici între pași
 
     def setup_fast_driver(self):
         """Setup optimizat pentru viteză"""
@@ -57,7 +55,7 @@ class BeachPleaseFastBot:
             self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
             # Settings pentru viteză + stabilitate
-            self.driver.set_page_load_timeout(15)  # Redus pentru viteză
+            self.driver.set_page_load_timeout(10)  # Redus pentru viteză
             self.driver.implicitly_wait(1)  # Foarte rapid
             self.driver.set_window_size(1920, 1080)
 
@@ -68,21 +66,6 @@ class BeachPleaseFastBot:
             logging.error(f"❌ Setup failed: {e}")
             return False
 
-    def rapid_beep(self):
-        """Beep rapid"""
-        try:
-            winsound.Beep(2000, 200)
-        except:
-            print("🚨")
-
-    def victory_beep(self):
-        """Beep de victorie rapid"""
-        try:
-            for i in range(5):
-                winsound.Beep(1500 + i * 100, 150)
-                time.sleep(0.05)
-        except:
-            print("🎉")
 
     def prepare_fast_monitoring(self):
         """Pregătește monitorizarea rapidă"""
@@ -167,10 +150,6 @@ class BeachPleaseFastBot:
                 # Click instant
                 self.driver.execute_script("arguments[0].click();", add_button)
 
-                print(f"✅ ADĂUGAT! (#{attempt + 1})")
-                logging.info(f"✅ Adăugat rapid la attempt {attempt + 1}")
-                self.rapid_beep()
-
                 time.sleep(self.step_delay_fast)  # Pauză minimă
                 return True
 
@@ -196,12 +175,12 @@ class BeachPleaseFastBot:
                 self.driver.get(self.checkout_url)
 
                 # Wait minimal pentru încărcare
-                WebDriverWait(self.driver, 8).until(
+                WebDriverWait(self.driver, 4).until(
                     EC.presence_of_element_located((By.TAG_NAME, "body"))
                 )
 
-                print(f"✅ CHECKOUT! (#{attempt + 1})")
-                logging.info(f"✅ Checkout rapid la attempt {attempt + 1}")
+                # print(f"✅ CHECKOUT! (#{attempt + 1})")
+                # logging.info(f"✅ Checkout rapid la attempt {attempt + 1}")
 
                 time.sleep(self.step_delay_fast)  # Pauză minimă
                 return True
@@ -340,7 +319,6 @@ class BeachPleaseFastBot:
 
         print(f"🏆" * 40)
 
-        self.victory_beep()
         logging.info(f"🎉 SUCCES FULGER în {total_time:.2f} secunde!")
 
         return True
@@ -380,16 +358,16 @@ class BeachPleaseFastBot:
                             break
 
                     # Status la 2 minute
-                    if self.check_count % 120 == 0:
-                        elapsed = current_time - self.start_time
-                        minutes = elapsed.total_seconds() // 60
-
-                        status = f"📊 Check #{self.check_count} | {current_time.strftime('%H:%M:%S')} | {minutes:.0f}m"
-                        print(status)
-                        logging.info(status)
+                    # if self.check_count % 120 == 0:
+                    #     elapsed = current_time - self.start_time
+                    #     minutes = elapsed.total_seconds() // 60
+                    #
+                    #     status = f"📊 Check #{self.check_count} | {current_time.strftime('%H:%M:%S')} | {minutes:.0f}m"
+                    #     print(status)
+                    #     logging.info(status)
 
                     # Pauză normală între verificări
-                    time.sleep(1)
+                    time.sleep(0.5)
 
                 except KeyboardInterrupt:
                     print(f"\n🛑 MONITORIZARE OPRITĂ")
