@@ -175,7 +175,7 @@ class BeachPleaseFastBot:
                 self.driver.get(self.checkout_url)
 
                 # Wait minimal pentru încărcare
-                WebDriverWait(self.driver, 4).until(
+                WebDriverWait(self.driver, 6).until(
                     EC.presence_of_element_located((By.TAG_NAME, "body"))
                 )
 
@@ -367,7 +367,7 @@ class BeachPleaseFastBot:
                     #     logging.info(status)
 
                     # Pauză normală între verificări
-                    time.sleep(0.5)
+                    time.sleep(0.8)
 
                 except KeyboardInterrupt:
                     print(f"\n🛑 MONITORIZARE OPRITĂ")
