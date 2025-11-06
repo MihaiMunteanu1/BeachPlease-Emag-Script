@@ -13,4 +13,4 @@
 
 6. The script will open the eMag home page, you will have to login manually and open the BP-Ticket product page:
 https://www.emag.ro/bilet-festival-beach-please-2026-persoana-general-access-costinesti-8-2-iulie-2026-1/pd/DJBBJQ3BM/ <br>
-After this, you will have to go back to the terminal and press 'Enter' and open back Chrome.
+After this, you will have to go back to the terminal and press 'Enter' and open back the Chrome that was opened.
