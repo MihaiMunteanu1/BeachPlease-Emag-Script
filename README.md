@@ -12,4 +12,4 @@
 5. Write: python main.py
 
 6. The script will open the eMag home page, you will have to login manually and open the BP-Ticket product page.
-After this, you will have to go back to the terminal and press 'Enter'
+After this, you will have to go back to the terminal and press 'Enter' and open back Chrome.
